@@ -152,7 +152,7 @@ func newConfig(provider *Provider, scopes []string) *oauth2.Config {
 
 // RefreshTokenAvailable refresh token is provided by auth provider or not
 func (p *Provider) RefreshTokenAvailable() bool {
-	return true
+	return false
 }
 
 // RefreshToken get new access token based on the refresh token
