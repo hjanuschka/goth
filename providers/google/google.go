@@ -28,6 +28,9 @@ func New(clientKey, secret, callbackURL string, scopes ...string) *Provider {
 
 		// We can get a refresh token from Google by this option.
 		// See https://developers.google.com/identity/protocols/oauth2/openid-connect#access-type-param
+		authCodeOptions: []oauth2.AuthCodeOption{
+			oauth2.AccessTypeOffline,
+		},
 	}
 	p.config = newConfig(p, scopes)
 	return p
@@ -152,7 +155,7 @@ func newConfig(provider *Provider, scopes []string) *oauth2.Config {
 
 // RefreshTokenAvailable refresh token is provided by auth provider or not
 func (p *Provider) RefreshTokenAvailable() bool {
-	return false
+	return true
 }
 
 // RefreshToken get new access token based on the refresh token
