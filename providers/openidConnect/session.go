@@ -3,10 +3,11 @@ package openidConnect
 import (
 	"encoding/json"
 	"errors"
-	"github.com/markbates/goth"
-	"golang.org/x/oauth2"
 	"strings"
 	"time"
+
+	"github.com/markbates/goth"
+	"golang.org/x/oauth2"
 )
 
 // Session stores data during the auth process with the OpenID Connect provider.
@@ -41,7 +42,9 @@ func (s *Session) Authorize(provider goth.Provider, params goth.Params) (string,
 	s.AccessToken = token.AccessToken
 	s.RefreshToken = token.RefreshToken
 	s.ExpiresAt = token.Expiry
-	s.IDToken = token.Extra("id_token").(string)
+	if idToken := token.Extra("id_token"); idToken != nil {
+		s.IDToken = idToken.(string)
+	}
 	return token.AccessToken, err
 }
 
